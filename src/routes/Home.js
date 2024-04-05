@@ -11,38 +11,41 @@ function Home() {
             (await fetch(
                 `https://yts.mx/api/v2/list_movies.json?minimum_rating=8.8&sort_by=year`
             )).json();
-        console.log(json)
+
         setMoives(json.data.movies);
         setLoading(false);
 
     }
 
+    console.log(movies, "movies")
     useEffect(() => {
         getMovies();
     }, [])
 
 
-    return (<div className={styles.container}>
-        {loading ?
-            <div className={styles.loader}>
-                <span>Loading...</span>
-            </div> : (
-                <div className={styles.movies}>
-                    {movies.map((movie) =>
-                        <Movie
-                            key={movie.id}
-                            id={movie.id}
-                            coverImg={movie.medium_cover_image}
-                            year={movie.year}
-                            title={movie.title}
-                            summary={movie.summary}
-                            genres={movie.genres}
-                        />)}
+    return (
+        <div className={styles.container}>
+            {loading ?
+                <div className={styles.loader}>
+                    <span>Loading...</span>
+                </div> : (
+                    <div className={styles.movies}>
+                        {movies.map((movie) =>
+                            <Movie
+                                key={movie.id}
+                                id={movie.id}
+                                coverImg={movie.medium_cover_image}
+                                year={movie.year}
+                                title={movie.title}
+                                summary={movie.summary}
+                                genres={movie.genres}
+
+                            />)}
 
 
-                </div>
-            )}
-    </div>
+                    </div>
+                )}
+        </div>
     );
 }
 
